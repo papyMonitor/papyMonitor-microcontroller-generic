@@ -62,7 +62,7 @@ void update( void );
 ```
 
 There are enum definitions that are used by **monitoring.c** file and the **sVariables_t** structure. The **sVariables_t** structure is defined in your project and contains the variables to report/edit.
-The **update** function is a function that you have to call every X (micro or milli) seconds for the variables reporting. One value is reported at a time. This function check also if a command is arrived and execute it.
+The **update** function is a function that you have to call every X (micro or milli) seconds for the variables to be reported. One value is reported at a time. This function check also for command arrival and execute it.
 
 
 Let's take a look to the beginning of **monitoring.c**:
@@ -83,3 +83,9 @@ extern sVariables_t variables[];
 extern const uint8_t nbVariables;
 ```
 
+There are 5 extern objects that must define in your project:
+- **msgFromHost[]** is a buffer that you must define and initialise with a length of 13 char (minimum). This buffer must contain any message from the host, you have to write the code for the serial receiving. On your code, as soon as a string terminates with a '\r' or '\n' copy it to **msgFromHost** and set the flag **messagePending** to true. You'll find a code example an explanation in **exampleCode.c**.
+- **messagePending** is a boolean that you must define and initialize to *false*. When your serial receiving code has set the **msgFromHost** buffer, set **messagePending** to true to tell **monitoring.c** that a new command is arrived. **monitoring.c** take care to reset **messagePending** to false.
+- **sendDataHost( char* message )** is a function that you must define. This function has to send over the serial port the buffer message. The buffer message length is 14 chars maximum and **ALWAYS** terminate with '\0' (it's a string).
+- **variables[]** is an array of objects in which you put your variables to report. You'll find a code example an explanation in **exampleCode.c**.
+- **nbVariables** is the number of elements in **variables[]**, you must define this, see the code example in **exampleCode.c**.

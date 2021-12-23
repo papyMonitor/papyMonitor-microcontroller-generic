@@ -1,8 +1,8 @@
 /*
  * monitoring.c
  *
- *  Created on: 30 janv. 2021
- *      Author: olivier
+ *  Created on: 22 dec. 2021
+ *      Author: papyDoctor
  */
 
 #include "stdio.h"
@@ -185,9 +185,9 @@ static void variablesSend( uint32_t index ) {
 /*
  * Seek and send from the sVariables_t struct for the next variable to report.
  * Each time this function is called, the index is set to the next variable
- * whose report bit is set to true and send it. When arrived at the end of struct, go
- * to the beginning as a loop.
- * Detect is no variables have their report bit to true (no endless loop)
+ * whose report value is set to eReportOn and send it. 
+ * When arrived at the end of struct, go to the beginning as a loop.
+ * Detect is no variables have their report value to eReportOn (no endless loop)
  */
 static void variablesSendNext( void ) {
 
@@ -228,12 +228,12 @@ static void setVariablesReporting( char* dataRx, bool set ) {
 }
  
 /*****************************************************************************
- * Public function must be called every X microsecond
+ * Public function
  ****************************************************************************/
 bool setVariablesReportingAllOn( uint8_t dummy ) {
 
 	for (uint32_t i=0; i<nbVariables; i++)
-		if (variables[i].report == eReportOff)
+		if (variables[i].report != eNeverReport)
 			variables[i].report = eReportOn;
 
 	return false;

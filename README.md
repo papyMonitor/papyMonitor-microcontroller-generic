@@ -62,7 +62,7 @@ void update( void );
 ```
 
 There are enum definitions that are used by **monitoring.c** file and the **sVariables_t** structure. The **sVariables_t** structure is defined in your project and contains the variables to report/edit.
-The **update** function is a function that you have to call every X (micro or milli) seconds for the variables to be reported. One value is reported at a time. This function check also for command arrival and execute it.
+The **update** function is a function that you have to call every X (micro or milli) seconds for the variables to be reported. One value is reported at a time. This function checks also for command arrival and execute it.
 
 
 Let's take a look to the beginning of **monitoring.c**:

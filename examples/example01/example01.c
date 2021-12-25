@@ -84,7 +84,7 @@ void sendDataHost( char* msgString )
  *  Your main function
  ****************************************************************************/
 int main( void ) {
-
+    
     while(1)
     {
         // Do your stuff
@@ -96,6 +96,5 @@ int main( void ) {
         if (YourTimerReachXSecond)
             update();
     }
-
 	return 0;
 }

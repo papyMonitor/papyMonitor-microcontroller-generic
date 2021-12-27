@@ -453,16 +453,9 @@ cfg:Variable({
 })
 
 
-
-
----------------
--- Embedded variables for Solids:
--- Px, Py, Pz = 3D Position of the Solid
--- Rx, Ry, Rz = 3D Rotation of the Solid
 ---------------
 cfg:Solid({
     Name="Sol",
-    Parent="Root",
     Body="Cube",
 
     StartPosition = { 0, 0, 0 },
@@ -470,119 +463,176 @@ cfg:Solid({
     CubeSize = { 5, 0.1, 10 },
     Formula = 
         function(self)
-            -- self.P.x = - self:GetVariable(2, 2) * 3
-            -- self.Color.r = self:GetVariable(2, 3)
-        end,     
+            -- 
+        end,   
+    Parent="Root",  
  })
+
 
 ---------------
 cfg:Solid({
-    Parent="Root",
-
     Name="Base",
-    Body="base.glb",
-    
-    Color={ 0.4, 0.3, 0.2 },
+    Body="Cylinder",
+    CylinderTopRadius = 0.8,
+    CylinderBottomRadius = 1.0,
+    CylinderHeight=0.2,
+
+    StartPosition={ 0, 0.1, 0 },
+    Color={ 0.4, 0.3, 0.4 },
     Formula = 
         function(self)
             --self.R.y = - self:GetVariable(8)
         end,       
+    Parent="Sol",
 })
 
 cfg:Solid({
-    Parent="Base",
-
     Name="Bras0",
-    Body="bras0.glb",
-    
-    StartPosition={ 0, 0.5, -0.2 },
-    StartRotation={ 0, 90, 0 },
-    Color={ 0.4, 0.3, 0.3 },
+    Body="Cylinder",
+    CylinderTopRadius = 0.3,
+    CylinderBottomRadius = 0.3,
+    CylinderHeight=2,
+
+    StartPosition={ 0, 0.01, 0 },
+    StartRotation={ 0, 180, 0 },
+    Color={ 0.3, 0.4, 0.3 },
     MoveRotationSmooth=true,
     Formula = 
         function(self)
             self.R.y = self:GetVariable(9)
-        end,       
+        end,     
+    Parent="Base",  
 })
 
 cfg:Solid({
-    Parent="Bras0",
+    Name="Artic0",
+    Body="Sphere",
+    SphereRadius = 0.4,
+    SphereHeight = 0.8,
 
+    StartPosition={ 0, 2, 0 },
+    Color={ 0.6, 0.4, 0 },
+    MoveRotationSmooth=true,
+    Formula = 
+        function(self)
+            --
+        end,       
+    Parent="Bras0",        
+})
+
+cfg:Solid({
     Name="Bras1",
-    Body="bras1.glb",
+    Body="Cylinder",
+    CylinderTopRadius = 0.2,
+    CylinderBottomRadius = 0.25,
+    CylinderHeight=2,
 
-    StartPosition={ -0.3, 2.35, 1.65 },
-    StartRotation={ 150, 0, 0 },
+    StartRotation={ -70, 0, 0 },
     Color={ 0.4, 0.1, 0.2 },
     MoveRotationSmooth=true,
     Formula = 
         function(self)
             self.R.x = - self:GetVariable(29)
-        end,       
+        end,
+    Parent="Artic0",
 })
 
 cfg:Solid({
-    Parent="Bras1",
+    Name="Artic1",
+    Body="Sphere",
+    SphereRadius = 0.32,
+    SphereHeight = 0.64,
 
+    StartPosition={ 0, 2, 0 },
+    Color={ 0.6, 0.4, 0.0 },
+    MoveRotationSmooth=true,
+    Formula = 
+        function(self)
+            --
+        end,       
+    Parent="Bras1",        
+})
+
+cfg:Solid({
     Name="Bras2",
-    Body="bras2.glb",
-    
-    StartPosition={ 0.45, 1.3, -3.5 },
-    StartRotation={ -50, 0, 0 },
-    Color={ 0.4, 0.5, 0.3 },
+    Body="Cylinder",
+    CylinderTopRadius = 0.15,
+    CylinderBottomRadius = 0.15,
+    CylinderHeight=1.5,
+
+    StartRotation={ -70, 0, 0 },
+    Color={ 0.5, 0.6, 0.7 },
     MoveRotationSmooth=true,
     Formula = 
         function(self)
             self.R.x = self:GetVariable(49)
-        end,       
+        end,
+    Parent="Artic1",
 })
 
 cfg:Solid({
-    Parent="Bras2",
+    Name="Artic3",
+    Body="Sphere",
+    SphereRadius = 0.25,
+    SphereHeight = 0.50,
 
-    Name="Bras3",
-    Body="bras3.glb",
-    
-    StartPosition={ -0.05, 0.35, 1.2 },
-    Color={ 0.4, 0.3, 0.6 },
+    StartPosition={ 0, 1.5, 0 },
+    Color={ 0.6, 0.4, 0.0 },
     MoveRotationSmooth=true,
     Formula = 
         function(self)
-            self.R.z = - self:GetVariable(69)
+          --self.R.y = self:GetVariable(69)
         end,       
+    Parent="Bras2",        
 })
 
 cfg:Solid({
-    Parent="Bras3",
+    Name="Bras3",
+    Body="Cube",
+    CubeSize={0.3, 0.7, 0.3},
 
+    StartPosition={ 0, 0.1, 0 },
+    Color={ 0.3, 0.3, 0.3 },
+    MoveRotationSmooth=true,
+    Formula = 
+        function(self)
+          self.R.y = self:GetVariable(69)
+        end,       
+    Parent="Artic3",        
+})
+
+cfg:Solid({
     Name="PinceA1",
-    Body="pinceA.glb",
-    
-    StartPosition={ -0.00, 0.0, 1.2 },
-    StartRotation={ 0, 90, 0 },
-    Color={ 0.7, 0.2, 0.2 },
+    Body="Cylinder",
+    CylinderTopRadius = 0.01,
+    CylinderBottomRadius = 0.05,
+    CylinderHeight=0.7,   
+
+    StartPosition={ 0, 0.6, 0.15 },
+    StartRotation={ 10, 0, 0 },
+    Color={ 0.2, 0.2, 0.2 },
     MoveRotationSmooth=true,
     Formula = 
         function(self)
             self.R.x = - self:GetVariable(89)
-        end,       
+        end,
+    Parent="Bras3",
 })
 
 cfg:Solid({
-    Parent="Bras3",
-
     Name="PinceA2",
-    Body="pinceA.glb",
-    
-    StartPosition={ -0.00, 0, 1.2 },
-    StartRotation={ 180, -90, 0 },
-    Color={ 0.7, 0.2, 0.2 },
+    Body="Cylinder",
+    CylinderTopRadius = 0.01,
+    CylinderBottomRadius = 0.05,
+    CylinderHeight=0.7,   
+
+    StartPosition={ 0, 0.6, -0.15 },
+    StartRotation={ -10, 0, 0 },
+    Color={ 0.2, 0.2, 0.2 },
     MoveRotationSmooth=true,
     Formula = 
         function(self)
-            self.R.x = self:GetVariable(89)
-        end,       
+            self.R.x =  self:GetVariable(89)
+        end,
+    Parent="Bras3",
 })
-
--- Industrial robot arm by olofunot is licensed 
--- under Creative Commons Attribution

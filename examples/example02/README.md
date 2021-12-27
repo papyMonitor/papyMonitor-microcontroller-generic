@@ -1,6 +1,6 @@
 # FreeRTOS example
 
-This is a complete example that works with FreeRTOS. The .lua configuration file is provided as well as the various shapes that form a robot.
+This is a complete example that works with FreeRTOS. The .lua configuration file is provided as well as the various shapes that form a multiaxles robot.
 
 This example doesn't work as it, you need to add your specific target libraries as well as the FreeRTOS library.
 
